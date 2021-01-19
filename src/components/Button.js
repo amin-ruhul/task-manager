@@ -1,8 +1,8 @@
 import React from "react";
 
-function Button({ text, color }) {
+function Button({ text, color, onTab }) {
   return (
-    <button className="btn" style={{ backgroundColor: color }}>
+    <button className="btn" style={{ backgroundColor: color }} onClick={onTab}>
       {text}
     </button>
   );
