@@ -20,10 +20,27 @@ function App() {
     return data;
   };
 
-  const handelAdd = (task) => {
-    const id = Math.floor(Math.random() * 1000) + 1;
-    const newTask = { id, ...task };
-    setTasks([...tasks, newTask]);
+  const fetchTask = async (id) => {
+    const res = await fetch(`http://localhost:8000/tasks/${id}`);
+    const data = await res.json();
+    return data;
+  };
+
+  const handelAdd = async (task) => {
+    const res = await fetch("http://localhost:8000/tasks", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(task),
+    });
+
+    const data = await res.json();
+    setTasks([...tasks, data]);
+
+    // const id = Math.floor(Math.random() * 1000) + 1;
+    // const newTask = { id, ...task };
+    // setTasks([...tasks, newTask]);
   };
   const handelDelete = async (id) => {
     await fetch(`http://localhost:8000/tasks/${id}`, {
@@ -33,10 +50,26 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  const handelReminder = (id) => {
+  const handelReminder = async (id) => {
+    const taskToReminder = await fetchTask(id);
+    const updateTask = {
+      ...taskToReminder,
+      reminder: !taskToReminder.reminder,
+    };
+
+    const res = await fetch(`http://localhost:8000/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(updateTask),
+    });
+
+    const data = await res.json();
+
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, reminder: !task.reminder } : task
+        task.id === id ? { ...task, reminder: data.reminder } : task
       )
     );
   };
