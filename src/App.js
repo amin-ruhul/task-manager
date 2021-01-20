@@ -1,29 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 function App() {
   const [showAddTask, setShowAddTask] = useState(false);
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "task-1",
-      date: "19-jan-2021",
-      reminder: true,
-    },
-    {
-      id: 2,
-      title: "task-2",
-      date: "19-jan-2021",
-      reminder: true,
-    },
-    {
-      id: 3,
-      title: "task-3",
-      date: "19-jan-2021",
-      reminder: true,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    fetch(" http://localhost:8000/tasks")
+      .then((res) => res.json())
+      .then((data) => setTasks(data));
+  }, []);
+
   const handelAdd = (task) => {
     const id = Math.floor(Math.random() * 1000) + 1;
     const newTask = { id, ...task };

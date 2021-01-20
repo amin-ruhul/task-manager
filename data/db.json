@@ -10,7 +10,7 @@
             "id": 2,
             "title": "task-2",
             "date": "19-janu-2021",
-            "reminder": true
+            "reminder": false
         },
         {
             "id": 3,
