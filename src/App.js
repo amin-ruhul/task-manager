@@ -7,17 +7,29 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch(" http://localhost:8000/tasks")
-      .then((res) => res.json())
-      .then((data) => setTasks(data));
+    const getTask = async () => {
+      const server_data = await fetchData();
+      setTasks(server_data);
+    };
+    getTask();
   }, []);
+
+  const fetchData = async () => {
+    const res = await fetch("http://localhost:8000/tasks");
+    const data = await res.json();
+    return data;
+  };
 
   const handelAdd = (task) => {
     const id = Math.floor(Math.random() * 1000) + 1;
     const newTask = { id, ...task };
     setTasks([...tasks, newTask]);
   };
-  const handelDelete = (id) => {
+  const handelDelete = async (id) => {
+    await fetch(`http://localhost:8000/tasks/${id}`, {
+      method: "DELETE",
+    });
+
     setTasks(tasks.filter((task) => task.id !== id));
   };
 

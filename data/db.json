@@ -1,22 +1,16 @@
 {
-    "tasks":[
-        {
-            "id": 1,
-            "title": "task-1",
-            "date": "19-janu-2021",
-            "reminder": true
-        },
-        {
-            "id": 2,
-            "title": "task-2",
-            "date": "19-janu-2021",
-            "reminder": false
-        },
-        {
-            "id": 3,
-            "title": "task-3",
-            "date": "19-janu-2021",
-            "reminder": true
-        }
-    ]
+  "tasks": [
+    {
+      "id": 1,
+      "title": "task-1",
+      "date": "19-janu-2021",
+      "reminder": true
+    },
+    {
+      "id": 2,
+      "title": "task-2",
+      "date": "19-janu-2021",
+      "reminder": false
+    }
+  ]
 }
